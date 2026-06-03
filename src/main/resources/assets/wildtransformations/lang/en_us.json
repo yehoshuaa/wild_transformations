@@ -1,0 +1,13 @@
+{
+  "itemGroup.wildtransformations": "Example Mod Tab",
+  "block.wildtransformations.example_block": "Example Block",
+  "item.wildtransformations.example_item": "Example Item",
+
+  "wildtransformations.configuration.title": "Wild Transformations Configs",
+  "wildtransformations.configuration.section.wildtransformations.common.toml": "Wild Transformations Configs",
+  "wildtransformations.configuration.section.wildtransformations.common.toml.title": "Wild Transformations Configs",
+  "wildtransformations.configuration.items": "Item List",
+  "wildtransformations.configuration.logDirtBlock": "Log Dirt Block",
+  "wildtransformations.configuration.magicNumberIntroduction": "Magic Number Text",
+  "wildtransformations.configuration.magicNumber": "Magic Number"
+}
