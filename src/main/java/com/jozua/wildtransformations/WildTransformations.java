@@ -30,6 +30,10 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import com.jozua.wildtransformations.transformation.TransformationCommand;
+import com.jozua.wildtransformations.registry.ModAttachments;
+import com.jozua.wildtransformations.event.PlayerTransformationEvents;
+import com.jozua.wildtransformations.WildTransformations;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(WildTransformations.MODID)
@@ -75,11 +79,15 @@ public class WildTransformations {
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
+        ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
+
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (WildTransformations) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.addListener(TransformationCommand::register);
+        NeoForge.EVENT_BUS.addListener(PlayerTransformationEvents::onPlayerTick);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

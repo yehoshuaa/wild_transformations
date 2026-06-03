@@ -1,6 +1,10 @@
 package com.jozua.wildtransformations.transformation;
 
-public class TransformationData {
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.neoforged.neoforge.common.util.INBTSerializable;
+
+public class TransformationData implements INBTSerializable<CompoundTag> {
     private TransformationType type = TransformationType.NONE;
     private int stage = 0;
     private int blood = 100;
@@ -49,5 +53,34 @@ public class TransformationData {
 
     public boolean isTransformed() {
         return type != TransformationType.NONE;
+    }
+
+    @Override
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        CompoundTag tag = new CompoundTag();
+
+        tag.putString("type", type.name());
+        tag.putInt("stage", stage);
+        tag.putInt("blood", blood);
+        tag.putInt("rage", rage);
+        tag.putInt("souls", souls);
+
+        return tag;
+    }
+
+    @Override
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+        String savedType = tag.getString("type");
+
+        try {
+            this.type = TransformationType.valueOf(savedType);
+        } catch (IllegalArgumentException exception) {
+            this.type = TransformationType.NONE;
+        }
+
+        this.stage = tag.getInt("stage");
+        this.blood = tag.getInt("blood");
+        this.rage = tag.getInt("rage");
+        this.souls = tag.getInt("souls");
     }
 }
